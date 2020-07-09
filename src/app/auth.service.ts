@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,15 @@ export class AuthService {
   //What I need to take away here is that adding all these extra abstractions is going to increase the complexity of the application.
   //I'm adding this abstraction AuthService simply to enable testability of our component and also have better separation of concern in the code.
 
-  constructor(private afAuth: AngularFireAuth) { 
+  constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute) { 
     //Use an observable to deal with asynchronous stream of data so it unsubscribe from it automatically. 
     //It's not like dealing with an http where angular terminates or complete the observable.
     this.user$ = afAuth.authState; //$ sign is a convention to mark a variable as observable
   } 
 
   login() {
+    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    localStorage.setItem('returnUrl', returnUrl);
     this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
 
