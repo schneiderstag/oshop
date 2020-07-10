@@ -11,6 +11,13 @@ import { switchMap, map } from 'rxjs/operators';
 export class AdminAuthGuard implements CanActivate {
   constructor(private auth: AuthService, private userService: UserService) {}
 
+  //Mosh Code (Older Angular Version):
+  // canActivate(): Observable<boolean> { 
+  //   return this.auth.user$
+  //     .pipe(switchMap(user => this.userService.get(user.uid)))
+  //     .pipe(map(appUser => appUser.isAdmin));
+  // }
+
   //Solution 1
   // canActivate(): Observable<boolean> {
   //   return this.auth.user$.pipe(
