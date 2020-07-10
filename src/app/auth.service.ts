@@ -1,5 +1,5 @@
 import { UserService } from './user.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
@@ -39,8 +39,17 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
+  // get appUser$(): Observable<AppUser> {
+  //   return this.user$ //It starts with this user Observable<firebase.user>
+  //     .pipe(switchMap((user) => this.userService.get(user.uid).valueChanges())) //It maps and switches to a new Observable Observable<AppUser>
+  // }
+  
   get appUser$(): Observable<AppUser> {
     return this.user$ //It starts with this user Observable<firebase.user>
-      .pipe(switchMap((user) => this.userService.get(user.uid).valueChanges())) //It maps and switches to a new Observable Observable<AppUser>
+      .pipe(switchMap((user) => {
+        if (user) return this.userService.get(user.uid).valueChanges(); //It maps and switches to a new Observable Observable<AppUser>
+        
+        return of(null); //add notes about observable of
+      }));
   }
 }
