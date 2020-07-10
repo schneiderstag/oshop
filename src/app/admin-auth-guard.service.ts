@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { CanActivate } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +28,7 @@ export class AdminAuthGuard implements CanActivate {
 
   //Solution 2
   canActivate(): Observable<boolean> {
-    return this.auth.user$ //It starts with this user Observable<firebase.user>
-      .pipe(switchMap((user) => this.userService.get(user.uid).valueChanges())) //It maps and switches to a new Observable Observable<AppUser>
-      .pipe(map((appUser) => appUser.isAdmin)); //Then it maps the AppUser to a boolean which is determined based on the value of isAdmin property
+    return this.auth.appUser$  
+    .pipe(map((appUser) => appUser.isAdmin)); //It maps the AppUser to a boolean which is determined based on the value of isAdmin property
   }
 }
