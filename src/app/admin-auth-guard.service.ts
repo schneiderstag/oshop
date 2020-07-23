@@ -5,30 +5,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AdminAuthGuard implements CanActivate {
   constructor(private auth: AuthService, private userService: UserService) {}
 
-  //Mosh Code (Older Angular Version):
-  // canActivate(): Observable<boolean> { 
-  //   return this.auth.user$
-  //     .pipe(switchMap(user => this.userService.get(user.uid)))
-  //     .pipe(map(appUser => appUser.isAdmin));
-  // }
-
-  //Solution 1
-  // canActivate(): Observable<boolean> {
-  //   return this.auth.user$.pipe(
-  //     switchMap((user) => this.userService.get(user.uid).valueChanges()),
-  //     map((appUser) => appUser.isAdmin)
-  //   );
-  // }
-
-  //Solution 2
   canActivate(): Observable<boolean> {
-    return this.auth.appUser$  
-    .pipe(map((appUser) => appUser.isAdmin)); //It maps the AppUser to a boolean which is determined based on the value of isAdmin property
+    // Maps Appuser observable to a boolean observable which is determined based on the value of isAdmin property
+    return this.auth.appUser$.pipe(map(appUser => appUser.isAdmin));
   }
 }

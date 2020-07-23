@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppUser } from './models/app-user';
 import { switchMap } from 'rxjs/operators';
 
@@ -23,15 +23,20 @@ export class AuthService {
   constructor(
     private userService: UserService,
     private afAuth: AngularFireAuth, 
-    private route: ActivatedRoute) { 
+    private route: ActivatedRoute,
+    private router: Router)
+    { 
     //Use an observable to deal with asynchronous stream of data so it unsubscribe from it automatically. 
     //It's not like dealing with an http where angular terminates or complete the observable.
     this.user$ = afAuth.authState; //$ sign is a convention to mark a variable as observable
   } 
 
   login() {
-    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    // Store the return URL in local storage
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
+
+    // signInWithRedirect() takes an auth provider object
     this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
 
@@ -39,17 +44,15 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
-  // get appUser$(): Observable<AppUser> {
-  //   return this.user$ //It starts with this user Observable<firebase.user>
-  //     .pipe(switchMap((user) => this.userService.get(user.uid).valueChanges())) //It maps and switches to a new Observable Observable<AppUser>
-  // }
-  
   get appUser$(): Observable<AppUser> {
+    // uid is the property of the 'user' object is the user represented by firebase as part of authentication and not the user object stored in the database
+    // We need to get the firebase 'user' object to read and read the actual application 'user' object from the database
     return this.user$ //It starts with this user Observable<firebase.user>
-      .pipe(switchMap((user) => {
+      .pipe(switchMap(user => {
         if (user) return this.userService.get(user.uid).valueChanges(); //It maps and switches to a new Observable Observable<AppUser>
-        
-        return of(null); //add notes about observable of
-      }));
+        else
+          return of(null); //add notes about observable of
+      })
+    );
   }
 }

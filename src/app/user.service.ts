@@ -11,6 +11,7 @@ export class UserService {
   constructor(private db: AngularFireDatabase) { }
 
   save(user: firebase.User) {
+    // Using update() not set() to avoid overwriting everytime the user logins
     this.db.object('/users/' + user.uid).update({
       name: user.displayName,
       email: user.email
