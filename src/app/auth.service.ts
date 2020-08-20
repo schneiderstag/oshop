@@ -33,11 +33,11 @@ export class AuthService {
 
   login() {
     // Store the return URL in local storage
-    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
 
     // signInWithRedirect() takes an auth provider object
-    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());//.then(); -> you could use it after the google auth and redirect, but i'm not sure if this works in angular yet.
   }
 
   logout() {
@@ -54,5 +54,8 @@ export class AuthService {
           return of(null); //add notes about observable of
       })
     );
+
+    // return this.auth.user$.pipe(
+    //   switchMap(user => this.userService.get(user.uid).valueChanges()),
   }
 }

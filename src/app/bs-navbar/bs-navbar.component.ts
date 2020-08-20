@@ -1,5 +1,5 @@
 import { AuthService } from './../auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppUser } from '../models/app-user';
 
 @Component({
@@ -12,7 +12,10 @@ export class BsNavbarComponent {
   appUser: AppUser;
   
   constructor(private auth: AuthService) {
-    auth.appUser$.subscribe(appUser => this.appUser = appUser); //add comments about memory leaks and unsubscribe
+    //In this particular case it doesn't matter as much to unsubscribe but from our other components dynamically added and removed in the DOM 
+    //we should make sure to unsubscribe from each of the subscriptions they are going to lead to memory leaks.
+    //To unsubscribe implement onDestroy() interface.
+    auth.appUser$.subscribe(appUser => this.appUser = appUser); 
   }
 
   logout() {
