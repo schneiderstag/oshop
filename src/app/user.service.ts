@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database'; //FirebaseObjectObservable changed to AngularFireObject
 import * as firebase from 'firebase';
@@ -11,14 +12,52 @@ export class UserService {
   constructor(private db: AngularFireDatabase) { }
 
   save(user: firebase.User) {
-    // Using update() not set() to avoid overwriting everytime the user logins
+    // Using update() not set() to avoid overwriting every time the user logins
     this.db.object('/users/' + user.uid).update({
       name: user.displayName,
       email: user.email
     });
   }
 
-  get(uid: string): AngularFireObject<AppUser> {
-    return this.db.object('/users/' + uid);
+  get(uid: string): Observable<any>{
+    // I'm close. Take a look on bs-navbar-component on how it gets the app user.
+    this.db.object('/users/' + uid).valueChanges().subscribe(console.log);
+
+    return this.db.object('/users/' + uid).valueChanges();
   }
+  
+  //Original:
+  // get(uid: string): Observable<any> {
+  //   return this.db.object('/users/' + uid).valueChanges();
+  // }
+
+  // get(uid: string): AngularFireObject<AppUser> {
+  //   return this.db.object('/users/' + uid);
+  // }
+
+  // get(uid: string): AngularFireObject<AppUser> {
+    // this.db.object('/users/' + uid)
+    // .valueChanges()
+    // .subscribe(res => {
+    //     console.log(res)
+    // })
+
+    // this.db.object('/users/' + uid)
+    // .valueChanges()
+    // .subscribe(res => {
+    //   console.log(res);
+    //   return res;
+    // });
+
+    //console.log(this.r)
+
+    // let test = this.db.object('/users/' + uid).valueChanges();
+    // console.log(test)
+    // console.log(this.db.object('/users/' + uid).valueChanges());
+    // return this.db.object('/users/' + uid);
+  // }
+
+  // get(uid: string): Observable<any> {
+  //   return this.db.object('/users/' + uid).valueChanges();
+  //   }
 }

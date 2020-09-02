@@ -1,9 +1,7 @@
-import { UserService } from './user.service';
-import { AuthService } from './auth.service';
 import { LoginComponent } from './login/login.component';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -57,12 +55,6 @@ import { AdminAuthGuard } from './admin-auth-guard.service';
       { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard] },
       { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard] },
     ])
-  ],
-  providers: [
-    AuthService,
-    AuthGuard,
-    AdminAuthGuard,
-    UserService,
   ],
   bootstrap: [AppComponent]
 })

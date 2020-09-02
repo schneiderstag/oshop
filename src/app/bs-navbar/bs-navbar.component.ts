@@ -5,7 +5,7 @@ import { AppUser } from '../models/app-user';
 @Component({
   selector: 'bs-navbar',
   templateUrl: './bs-navbar.component.html',
-  styleUrls: ['./bs-navbar.component.css'],
+  styleUrls: ['./bs-navbar.component.css']
 })
 export class BsNavbarComponent {
   //Come back to lesson 12 Showing or hiding the admin link to add notes about async pipe and switchMap causing change detection issues in the template
