@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database'; //FirebaseObjectObservable changed to AngularFireObject
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database'; //FirebaseObjectObservable changed to AngularFireObject
 import * as firebase from 'firebase';
 import { AppUser } from './models/app-user';
 
@@ -20,11 +20,25 @@ export class UserService {
   }
 
   get(uid: string): Observable<any>{
-    // I'm close. Take a look on bs-navbar-component on how it gets the app user.
-    this.db.object('/users/' + uid).valueChanges().subscribe(console.log);
+    //this.db.object('/users/' + uid).valueChanges().subscribe(console.log); //displays user in the console
 
     return this.db.object('/users/' + uid).valueChanges();
   }
+
+  // usersRef: AngularFireList<any>;    // Reference to User data list, it's an Observable
+  // userRef: AngularFireObject<any>;   // Reference to User object, it's an Observable too
+
+  // Fetch Single Object
+  // GetUser(uid: string) {
+  //   this.userRef = this.db.object('users/' + uid);
+  //   return this.userRef;
+  // }
+
+  // // Fetch Users List
+  // GetUsers() {
+  //   this.usersRef = this.db.list('users');
+  //   return this.usersRef;
+  // }
   
   //Original:
   // get(uid: string): Observable<any> {
