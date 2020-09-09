@@ -23,7 +23,6 @@ export class AuthService {
     private userService: UserService,
     private afAuth: AngularFireAuth, 
     private route: ActivatedRoute)
-    //private router: Router)
     { 
     //Use an observable to deal with asynchronous stream of data so it unsubscribe from it automatically. 
     //It's not like dealing with an http where angular terminates or complete the observable.
@@ -44,18 +43,6 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
-  // get appUser$(): Observable<AppUser> {
-  //   // uid is the property of the 'user' object is the user represented by firebase as part of authentication and not the user object stored in the database
-  //   // We need to get the firebase 'user' object to read and read the actual application 'user' object from the database
-  //   return this.user$ //It starts with this user Observable<firebase.user>
-  //     .pipe(switchMap(user => {
-  //       if (user) return this.userService.get(user.uid).valueChanges(); //It maps and switches to a new Observable Observable<AppUser>
-  //       else
-  //         return of(null); //add notes about observable of
-  //     })
-  //   );
-  // }
-
   get appUser$(): Observable<AppUser> {
     return this.user$
     .pipe(switchMap(user => {
@@ -64,5 +51,4 @@ export class AuthService {
       return of(null);
     }))
   }
-
 }

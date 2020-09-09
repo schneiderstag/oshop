@@ -20,11 +20,10 @@ export class UserService {
   }
 
   get(uid: string): Observable<any>{
-    //this.db.object('/users/' + uid).valueChanges().subscribe(console.log); //displays user in the console
-
     return this.db.object('/users/' + uid).valueChanges();
+    //this.db.object('/users/' + uid).valueChanges().subscribe(console.log); //displays user in the console
   }
-
+}
   // usersRef: AngularFireList<any>;    // Reference to User data list, it's an Observable
   // userRef: AngularFireObject<any>;   // Reference to User object, it's an Observable too
 
@@ -74,4 +73,3 @@ export class UserService {
   // get(uid: string): Observable<any> {
   //   return this.db.object('/users/' + uid).valueChanges();
   //   }
-}

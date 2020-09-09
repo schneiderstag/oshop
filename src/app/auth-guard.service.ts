@@ -1,7 +1,8 @@
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { map } from 'rxjs/operators'
+import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot, UrlTree } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({ 
   providedIn: 'root' 
@@ -9,7 +10,7 @@ import { map } from 'rxjs/operators'
 export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) { }
 
-  canActivate(router, state: RouterStateSnapshot) {
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.auth.user$.pipe(map(user => {
       if (user) return true;
 
@@ -17,7 +18,17 @@ export class AuthGuard implements CanActivate {
       return false;
     }));
   }
+}
 
+//   canActivate(router, state: RouterStateSnapshot) {
+//     return this.auth.user$.pipe(map(user => {
+//       if (user) return true;
+
+//       this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+//       return false;
+//     }));
+//   }
+// }
   // canActivate(route, state: RouterStateSnapshot) {
   //   // with RouterStateSnapshot we can get the url that the user tried to access when this AuthGuard kicked in
   //   return this.auth.user$
@@ -31,6 +42,3 @@ export class AuthGuard implements CanActivate {
   //       return false;
   //   }));
   // }
-
-
-}
