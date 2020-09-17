@@ -10,6 +10,8 @@ export class CategoryService {
 
   getCategories() {
     return this.db.list('/categories', c => c.orderByChild('name')).valueChanges();
-    //return this.db.list('/categories').valueChanges(); //.query.orderByChild('name');
+    //return this.db.list('/categories').valueChanges();
+    //return this.db.list('/categories', c => c.orderByChild('name')).snapshotChanges();
+    //return this.db.list('/categories').snapshotChanges();
   }
 }
