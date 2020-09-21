@@ -17,7 +17,8 @@
         <select ngModel name="category" id="category" class="form-control">
             <option value="">Select a category...</option>
             <option *ngFor="let c of categories$ | async" [value]="c.key">
-                {{ c.name }}
+                <!-- {{ c.name }} -->
+                {{ c.payload.val().name }}
             </option>
         </select>
     </div>
