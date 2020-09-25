@@ -11,8 +11,8 @@ import { take } from 'rxjs/operators';
 })
 export class ProductFormComponent implements OnInit {
   categories$;
-  //product = {title: '', price: 0, category: '', imageUrl: ''};
   product: any = {};
+  //product = {};
 
   constructor(
     private router: Router,

@@ -1,5 +1,6 @@
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,9 @@ export class ProductService {
   }
   
   get(productId){
-    return this.db.object('/products/' + productId).snapshotChanges();
+    //What's the difference between valueChanges() and snapshotChanges()?
+    //return this.db.object('/products/' + productId).valueChanges();
+    return this.db.object('/products/' + productId).valueChanges().pipe(tap(data => console.log(JSON.stringify(data))));
   }
 
 
