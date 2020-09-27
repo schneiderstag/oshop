@@ -1,5 +1,6 @@
 import { ProductService } from './../../product.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-products',
@@ -9,8 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class AdminProductsComponent implements OnInit {
   products$;
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private router: Router,
+    private productService: ProductService) {
     this.products$ =  this.productService.getAll();
+  }
+
+  delete(productId) {
+    if (!confirm('Are you sure you want to delete this product?')) return;
+
+    this.productService.delete(productId);
+    this.router.navigate(['/admin/products']);
   }
 
   ngOnInit(): void {

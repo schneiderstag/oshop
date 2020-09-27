@@ -15,6 +15,8 @@
             <td>{{ p.payload.val().price }}</td>
             <td>
                 <a [routerLink]="['/admin/products/', p.key]">Edit</a>
+                <a> | </a>
+                <a [routerLink]="['./']" (click)="delete(p.key)">Delete</a>
             </td>
         </tr>
     </tbody>

@@ -23,5 +23,11 @@ export class ProductService {
     return this.db.object('/products/' + productId).valueChanges().pipe(tap(data => console.log(JSON.stringify(data))));
   }
 
+  update(productId, product) {
+    return this.db.object('/products/' + productId).update(product);
+  }
 
+  delete(productId) {
+    return this.db.object('/products/' + productId).remove();    
+  }
 }
