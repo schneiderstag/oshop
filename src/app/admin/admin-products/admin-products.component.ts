@@ -15,6 +15,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   filteredProducts: any[];
   subscription: Subscription;
 
+  @ViewChild('agGridGroup') agGridGroup: AgGridAngular;
   @ViewChild('agGrid') agGrid: AgGridAngular;
   // ag-grid
   // columnDefs = [
@@ -39,8 +40,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     filter: true
   };
 
-  columnDefs = [
-    // { field: 'category' },
+  columnDefsGroup = [
     { field: 'category', rowGroup: true },
     { field: 'price' }
   ];
@@ -53,6 +53,11 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
         checkbox: true
     }
   };
+
+  columnDefs = [
+    { field: 'title', sortable: true, filter: true, checkboxSelection: true },
+    { field: 'price', sortable: true, filter: true }
+  ];
   // ag-grid
 
   constructor(private router: Router, private productService: ProductService) {
@@ -81,14 +86,22 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   }
 
   //ag-grid
-  getSelectedRows() {
-    const selectedNodes = this.agGrid.api.getSelectedNodes();
+  getSelectedRowsGroup() {
+    const selectedNodes = this.agGridGroup.api.getSelectedNodes();
     const selectedData = selectedNodes.map(node => {
       if (node.groupData) {
         return { category: node.key, title: 'Group' };
       }
       return node.data;
     });      
+    const selectedDataStringPresentation = selectedData.map(node => node.category + ' ' + node.title + ' ' + node.price).join(', ');
+
+    alert(`Selected nodes: ${selectedDataStringPresentation}`);
+  }
+
+  getSelectedRows() {
+    const selectedNodes = this.agGrid.api.getSelectedNodes();
+    const selectedData = selectedNodes.map(node => node.data);      
     const selectedDataStringPresentation = selectedData.map(node => node.category + ' ' + node.title + ' ' + node.price).join(', ');
 
     alert(`Selected nodes: ${selectedDataStringPresentation}`);

@@ -2,14 +2,27 @@
     <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 </p>
 
+<!-- ag-grid table with grouping -->
+<button (click)="getSelectedRowsGroup()">Get Selected Rows</button>
+<ag-grid-angular
+    #agGridGroup
+    style="width: 500px; height: 500px;"
+    class="ag-theme-alpine"
+    [defaultColDef]="defaultColDef"
+    [autoGroupColumnDef]="autoGroupColumnDef"
+    [rowData]="products"
+    [columnDefs]="columnDefsGroup"
+    rowSelection="multiple"
+>
+</ag-grid-angular>
 <!-- ag-grid table -->
+
+<!-- ag-grid table without grouping -->
 <button (click)="getSelectedRows()">Get Selected Rows</button>
 <ag-grid-angular
     #agGrid
     style="width: 500px; height: 500px;"
     class="ag-theme-alpine"
-    [defaultColDef]="defaultColDef"
-    [autoGroupColumnDef]="autoGroupColumnDef"
     [rowData]="products"
     [columnDefs]="columnDefs"
     rowSelection="multiple"
