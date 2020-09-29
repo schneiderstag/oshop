@@ -2,34 +2,40 @@
     <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 </p>
 
-<!-- ag-grid table with grouping -->
-<button (click)="getSelectedRowsGroup()">Get Selected Rows</button>
-<ag-grid-angular
-    #agGridGroup
-    style="width: 500px; height: 500px;"
-    class="ag-theme-alpine"
-    [defaultColDef]="defaultColDef"
-    [autoGroupColumnDef]="autoGroupColumnDef"
-    [rowData]="products"
-    [columnDefs]="columnDefsGroup"
-    rowSelection="multiple"
->
-</ag-grid-angular>
-<!-- ag-grid table -->
+    <!-- ag-grid table with grouping -->
+    <div>
+        <div style="display: inline-block;">
+            <button (click)="getSelectedRowsGroup()">Get Selected Rows</button>
+            <ag-grid-angular
+                #agGridGroup
+                style="width: 500px; height: 500px;"
+                class="ag-theme-alpine"
+                [defaultColDef]="defaultColDef"
+                [autoGroupColumnDef]="autoGroupColumnDef"
+                [rowData]="products"
+                [columnDefs]="columnDefsGroup"
+                rowSelection="multiple"
+            >
+            </ag-grid-angular>
+        </div>
+        <!-- ag-grid table -->
 
-<!-- ag-grid table without grouping -->
-<button (click)="getSelectedRows()">Get Selected Rows</button>
-<ag-grid-angular
-    #agGrid
-    style="width: 500px; height: 500px;"
-    class="ag-theme-alpine"
-    [rowData]="products"
-    [columnDefs]="columnDefs"
-    rowSelection="multiple"
->
-</ag-grid-angular>
-<!-- ag-grid table -->
-
+        <!-- ag-grid table without grouping -->
+        <div style="display: inline-block;">
+            <button (click)="getSelectedRows()">Get Selected Rows</button>
+            <ag-grid-angular
+                #agGrid
+                style="width: 500px; height: 500px;"
+                class="ag-theme-alpine"
+                [rowData]="products"
+                [columnDefs]="columnDefs"
+                rowSelection="multiple"
+            >
+        </ag-grid-angular>
+        <!-- ag-grid table -->
+        </div>
+    </div>
+<p>&nbsp;</p>
 <p>
     <input #query (keyup)="filter(query.value)" type="text" class="form-control" placeholder="Search...">
 </p>
