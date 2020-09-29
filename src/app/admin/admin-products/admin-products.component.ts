@@ -1,8 +1,9 @@
 import { Product } from './../../models/product';
 import { ProductService } from './../../product.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
   selector: 'app-admin-products',
@@ -13,6 +14,46 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   products: Product[];
   filteredProducts: any[];
   subscription: Subscription;
+
+  @ViewChild('agGrid') agGrid: AgGridAngular;
+  // ag-grid
+  // columnDefs = [
+  //   { field: 'make', sortable: true, filter: true },
+  //   { field: 'model', sortable: true, filter: true },
+  //   { field: 'price', sortable: true, filter: true }
+  // ];
+
+  // rowData = [ using products in the template
+  //     { make: 'Toyota', model: 'Celica', price: 35000 },
+  //     { make: 'Ford', model: 'Mondeo', price: 32000 },
+  //     { make: 'Porsche', model: 'Boxter', price: 72000 }
+  // ];
+
+  // columnDefs = [
+  //   { field: 'title', sortable: true, filter: true, checkboxSelection: true },
+  //   { field: 'price', sortable: true, filter: true }
+  // ];
+
+  defaultColDef = {
+    sortable: true,
+    filter: true
+  };
+
+  columnDefs = [
+    // { field: 'category' },
+    { field: 'category', rowGroup: true },
+    { field: 'price' }
+  ];
+
+  autoGroupColumnDef = {
+    headerName: 'Title',
+    field: 'title',
+    cellRenderer: 'agGroupCellRenderer',
+    cellRendererParams: {
+        checkbox: true
+    }
+  };
+  // ag-grid
 
   constructor(private router: Router, private productService: ProductService) {
     this.subscription = this.productService.getAll()
@@ -35,7 +76,22 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+
   }
 
+  //ag-grid
+  getSelectedRows() {
+    const selectedNodes = this.agGrid.api.getSelectedNodes();
+    const selectedData = selectedNodes.map(node => {
+      if (node.groupData) {
+        return { category: node.key, title: 'Group' };
+      }
+      return node.data;
+    });      
+    const selectedDataStringPresentation = selectedData.map(node => node.category + ' ' + node.title + ' ' + node.price).join(', ');
+
+    alert(`Selected nodes: ${selectedDataStringPresentation}`);
+  }
+  //ag-grid
 }

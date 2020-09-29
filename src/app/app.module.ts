@@ -9,6 +9,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomFormsModule } from 'ng2-validation';
+import { AgGridModule } from 'ag-grid-angular';
+import 'ag-grid-enterprise';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,6 +50,7 @@ import { AdminAuthGuard } from './admin-auth-guard.service';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule,
+    AgGridModule.withComponents([]),
     RouterModule.forRoot([
       { path: '', component: HomeComponent }, 
       { path: 'products', component: ProductsComponent },

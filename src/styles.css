@@ -1,6 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 
+/* ag-grid css */
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+
 body {
   padding-top: 80px;
+}
+
+.ag-theme-alpine {
+  @include ag-theme-alpine((
+      odd-row-background-color: #CFD8DC
+  ));
 }
