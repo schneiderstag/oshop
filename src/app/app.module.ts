@@ -52,7 +52,7 @@ import { AdminAuthGuard } from './admin-auth-guard.service';
     NgbModule,
     AgGridModule.withComponents([]),
     RouterModule.forRoot([
-      { path: '', component: HomeComponent }, 
+      { path: '', component: ProductsComponent }, 
       { path: 'products', component: ProductsComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
       { path: 'login', component: LoginComponent },

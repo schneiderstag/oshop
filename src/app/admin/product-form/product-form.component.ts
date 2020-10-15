@@ -20,7 +20,7 @@ export class ProductFormComponent implements OnInit {
     private route: ActivatedRoute,
     private categoryService: CategoryService, 
     private productService: ProductService) { 
-    this.categories$ = categoryService.getCategories();
+    this.categories$ = categoryService.getAll();
 
    this.id = this.route.snapshot.paramMap.get('id');
    if (this.id) this.productService.get(this.id).pipe(take(1)).subscribe(p => this.product = p); //With the take operator we can take n values from our observable and then it will automatically unsubscribe/complete so we don't need to explicitly unsubscribe. 
