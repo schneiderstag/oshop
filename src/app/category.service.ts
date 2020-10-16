@@ -13,7 +13,12 @@ export class CategoryService {
   getAll(): Observable<any[]> {
     //return this.db.list('/categories', c => c.orderByChild('name')).valueChanges();
     //return this.db.list('/categories').valueChanges();
-    return this.db.list('/categories', c => c.orderByChild('name')).snapshotChanges();
+    return this.db.list('/categories', c => c.orderByChild('name')).snapshotChanges()
+      .pipe(
+        map(category =>
+          category.map(c => ({ key: c.key, ...c.payload.val() as any }))
+        )
+      );
     //return this.db.list('/categories').snapshotChanges();
   }
 }
