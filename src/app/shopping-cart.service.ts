@@ -38,9 +38,10 @@ export class ShoppingCartService {
     let cartId = await this.getOrCreateCartId();
     let item$ = this.getItem(cartId, product.$key);
     
-    item$.valueChanges().pipe(take(1)).subscribe(item => { //take allows to get n values from an observable and then it will automatically unsubscribe/complete.
-      item$.update({ product: product, quantity: (item.quantity || 0) + 1 });
+    item$.snapshotChanges().pipe(take(1)).subscribe(item => { //take allows to get n values from an observable and then it will automatically unsubscribe/complete.
+      item$.update({ 
+        product: product, 
+        quantity: (item.payload.child("/quantity").val() || 0) + 1 });
     }); 
-
   }
 }
