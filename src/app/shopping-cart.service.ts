@@ -16,7 +16,8 @@ export class ShoppingCartService {
     });
   }
 
-  private getCart(cartId: string) {
+  async getCart() {
+    let cartId = await this.getOrCreateCartId();
     this.db.object('/shopping-carts/' + cartId);
   }
 
@@ -24,7 +25,7 @@ export class ShoppingCartService {
     return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
   }
 
-  private async getOrCreateCartId() {
+  private async getOrCreateCartId(): Promise<string> {
     let cartId = localStorage.getItem('cartId');
     if (cartId) return cartId;
 
@@ -36,12 +37,22 @@ export class ShoppingCartService {
 
   async addToCart(product: Product) {
     let cartId = await this.getOrCreateCartId();
-    let item$ = this.getItem(cartId, product.$key);
+    let item$ = this.getItem(cartId, product.key);
     
     item$.snapshotChanges().pipe(take(1)).subscribe(item => { //take allows to get n values from an observable and then it will automatically unsubscribe/complete.
       item$.update({ 
         product: product, 
         quantity: (item.payload.child("/quantity").val() || 0) + 1 });
+
+      // if (item.payload.exists()) {
+      //   item$.update({ quantity: item.payload.exportVal().quantity + 1 });
+      // } else {
+      //   item$.set({ product: product, quantity: 1 });
+      // }
+
+      // item$.update({ 
+      //   product: product, 
+      //   quantity: (item.payload.exportVal().quantity || 0) + 1 });
     }); 
   }
 }
