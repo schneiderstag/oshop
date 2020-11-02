@@ -2,6 +2,7 @@ import { Product } from './models/product';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,9 @@ export class ShoppingCartService {
     });
   }
 
-  async getCart() {
+  async getCart(){
     let cartId = await this.getOrCreateCartId();
-    this.db.object('/shopping-carts/' + cartId);
+    return this.db.object('/shopping-carts/' + cartId);
   }
 
   private getItem(cartId: string, productId: string) {
@@ -40,9 +41,7 @@ export class ShoppingCartService {
     let item$ = this.getItem(cartId, product.key);
     
     item$.snapshotChanges().pipe(take(1)).subscribe(item => { //take allows to get n values from an observable and then it will automatically unsubscribe/complete.
-      item$.update({ 
-        product: product, 
-        quantity: (item.payload.child("/quantity").val() || 0) + 1 });
+      item$.update({ product: product, quantity: (item.payload.child("/quantity").val() || 0) + 1 });
     }); 
   }
 }
