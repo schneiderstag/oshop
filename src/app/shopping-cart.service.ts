@@ -11,7 +11,7 @@ export class ShoppingCartService {
   constructor(private db: AngularFireDatabase) { }
 
   private create() {
-    return this.db.list('shopping-carts').push({
+    return this.db.list('/shopping-carts').push({
       dateCreated: new Date().getTime()
     });
   }
@@ -43,16 +43,6 @@ export class ShoppingCartService {
       item$.update({ 
         product: product, 
         quantity: (item.payload.child("/quantity").val() || 0) + 1 });
-
-      // if (item.payload.exists()) {
-      //   item$.update({ quantity: item.payload.exportVal().quantity + 1 });
-      // } else {
-      //   item$.set({ product: product, quantity: 1 });
-      // }
-
-      // item$.update({ 
-      //   product: product, 
-      //   quantity: (item.payload.exportVal().quantity || 0) + 1 });
     }); 
   }
 }
