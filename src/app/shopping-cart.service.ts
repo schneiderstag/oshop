@@ -2,7 +2,7 @@ import { async } from '@angular/core/testing';
 import { Product } from './models/product';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ShoppingCartItem } from './models/shopping-cart-item';
 import { ShoppingCart } from './models/shopping-cart';
@@ -20,9 +20,10 @@ export class ShoppingCartService {
     });
   }
 
-  async getCart(): Promise<AngularFireObject<ShoppingCart>> {
+  async getCart(): Promise<Observable<ShoppingCart>> {
     let cartId = await this.getOrCreateCartId();
-    return this.db.object('/shopping-carts/' + cartId);
+    return this.db.object('/shopping-carts/' + cartId).snapshotChanges()
+      .pipe(map(x => new ShoppingCart(x.payload.exportVal().items)));
   }
 
   private getItem(cartId: string, productId: string) {
