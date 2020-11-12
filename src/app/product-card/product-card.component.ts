@@ -11,7 +11,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProductCardComponent {
   @Input('product') product: Product;
   @Input('show-actions') showActions = true;
-  @Input('shopping-cart') shoppingCart : ShoppingCart;
+  @Input('shopping-cart') shoppingCart : ShoppingCart; // To get the cart object from the DB for the current user and pass it to each card as an input
 
   constructor(private cartService: ShoppingCartService) { }
 

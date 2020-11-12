@@ -1,4 +1,3 @@
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from './../../product.service';
 import { CategoryService } from './../../category.service';
@@ -12,7 +11,6 @@ import { take } from 'rxjs/operators';
 export class ProductFormComponent implements OnInit {
   categories$;
   product: any = {};
-  //product = {};
   id;
 
   constructor(
