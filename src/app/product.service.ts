@@ -31,7 +31,10 @@ export class ProductService {
   get(productId: number) {
     //What's the difference between valueChanges() and snapshotChanges()?
     //return this.db.object('/products/' + productId).valueChanges();
-    return this.db.object('/products/' + productId).valueChanges().pipe(tap(data => console.log(JSON.stringify(data))));
+    return this.db.object('/products/' + productId).valueChanges()
+      .pipe(
+        tap(data => console.log(JSON.stringify(data)))
+      );
   }
 
   update(productId: number, product: Product) {

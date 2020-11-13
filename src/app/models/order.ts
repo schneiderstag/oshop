@@ -1,3 +1,4 @@
+import { Shipping } from './shipping';
 import { ShoppingCart } from './shopping-cart';
 export class Order {
   datePlaced: number;
@@ -5,7 +6,7 @@ export class Order {
 
   constructor(
     public userId: string,
-    public shipping: any,
+    public shipping: Shipping,
     shoppingCart: ShoppingCart
   ) {
     this.datePlaced = new Date().getTime();
