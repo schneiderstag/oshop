@@ -1,4 +1,4 @@
-import { UserService } from './user.service';
+import { UserService } from 'shared/services/user.service';
 import { Observable, of } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
