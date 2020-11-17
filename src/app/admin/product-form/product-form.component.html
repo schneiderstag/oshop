@@ -52,7 +52,7 @@
         >
           <option value="">Select a category...</option>
           <option *ngFor="let c of categories$ | async" [value]="c.key">
-            {{ c.payload.val().name }}
+            {{ c.name }}
           </option>
         </select>
         <div

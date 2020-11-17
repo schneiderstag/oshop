@@ -1,16 +1,18 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from './../../product.service';
-import { CategoryService } from './../../category.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
+
+import { CategoryService } from './../../category.service';
+import { ProductService } from './../../product.service';
+
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent {
   categories$;
-  product: any = {};
+  product: any = {}; // To avoid errors in the console while waiting for the sync operation to complete
   id;
 
   constructor(
@@ -27,7 +29,6 @@ export class ProductFormComponent implements OnInit {
   save(product) {
     if (this.id) this.productService.update(this.id, product);
     else this.productService.create(product);
-    console.log(product);
     this.router.navigate(['/admin/products']);
   }
 
@@ -36,8 +37,5 @@ export class ProductFormComponent implements OnInit {
     
     this.productService.delete(this.id);
     this.router.navigate(['/admin/products']);
-  }
-
-  ngOnInit(): void {
   }
 }
