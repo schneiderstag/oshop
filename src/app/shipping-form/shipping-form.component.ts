@@ -1,6 +1,6 @@
-import { Shipping } from './../models/shipping';
-import { ShoppingCart } from './../models/shopping-cart';
-import { Order } from './../models/order';
+import { Shipping } from 'shared/models/shipping';
+import { ShoppingCart } from 'shared/models/shopping-cart';
+import { Order } from 'shared/models/order';
 import { OrderService } from './../order.service';
 import { AuthService } from './../auth.service';
 import { Router } from '@angular/router';
