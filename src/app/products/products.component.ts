@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'shared/services/product.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-products',

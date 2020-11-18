@@ -19,9 +19,9 @@ import { ProductFormComponent } from './admin/components/product-form/product-fo
 import { AdminAuthGuard } from './admin/services/admin-auth-guard.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
+import { BsNavbarComponent } from './core/components/bs-navbar/bs-navbar.component';
+import { HomeComponent } from './core/components/home/home.component';
+import { LoginComponent } from './core/components/login/login.component';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductCardComponent } from './shared/components/product-card/product-card.component';
