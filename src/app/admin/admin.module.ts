@@ -1,6 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AgGridModule } from 'ag-grid-angular';
 import { AuthGuard } from 'shared/services/auth-guard.service';
@@ -18,8 +16,6 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
     ProductFormComponent,
   ],
   imports: [
-    CommonModule,
-    FormsModule,
     SharedModule,
     AgGridModule.withComponents([]),
     RouterModule.forChild([
