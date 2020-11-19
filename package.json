@@ -29,6 +29,7 @@
     "bootstrap": "^4.5.0",
     "firebase": "^7.15.5",
     "firebase-tools": "^8.4.3",
+    "font-awesome": "^4.7.0",
     "g": "^2.0.1",
     "ng2-validation": "^4.2.0",
     "rxjs": "~6.5.4",

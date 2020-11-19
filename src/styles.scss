@@ -1,0 +1,69 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
+
+/* ag-grid css */
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+
+$primary-color: #343a40;
+$primary-color-light: #66696e;
+$accent-color: greenyellow;
+
+body {
+  padding-top: 80px;
+}
+
+body { 
+  padding-top: 80px; 
+}
+
+h1, h2, h3 { 
+  margin-bottom: 1.5rem;
+}
+
+.navbar { 
+  border-bottom: 3px solid #e7e7e7;
+}
+
+.navbar-dark .navbar-brand {
+  color: $accent-color;
+}
+
+.navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
+  color: $accent-color;
+}
+
+.list-group-item.active {
+  z-index: 2;
+  color: $accent-color;
+  background-color: $primary-color;
+  border-color: $primary-color;
+}
+
+
+.btn-primary {
+  background-color: $primary-color;
+  border-color: $primary-color;
+}
+
+.btn-primary:hover {
+  background-color: $primary-color-light;
+  border-color: $accent-color;
+  color: $accent-color;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  background-color: $primary-color;
+  border-color: $primary-color;
+}
+
+.form-control:focus {
+  border-color: $primary-color;
+} 
+
+// .ag-theme-alpine {
+//   @include ag-theme-alpine((
+//       odd-row-background-color: #CFD8DC
+//   ));
+// }
