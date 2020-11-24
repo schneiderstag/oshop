@@ -1,3 +1,5 @@
+import { Order } from 'shared/models/order';
+import { Observable } from 'rxjs';
 import { OrderService } from 'shared/services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -8,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./admin-orders-detail.component.css']
 })
 export class AdminOrdersDetailComponent implements OnInit {
-  order$;
+  order$: Observable<Order>;
   id: string;
 
   constructor(private route: ActivatedRoute, private orderService: OrderService) { }
@@ -16,7 +18,5 @@ export class AdminOrdersDetailComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) this.order$ = await this.orderService.getOrderById(this.id);
-
-    console.log(this.order$);
   }
 }
