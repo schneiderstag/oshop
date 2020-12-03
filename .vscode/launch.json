@@ -1,0 +1,16 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Angular CLI Debug Config",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}",
+            "userDataDir": false // Bypass message 'This browser or app may not be secure.' from google login
+        }
+    ]
+}
