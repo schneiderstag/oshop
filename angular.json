@@ -121,5 +121,8 @@
       }
     }
   },
-  "defaultProject": "oshop"
+  "defaultProject": "oshop",
+  "cli": {
+    "analytics": "c7d4dc48-3e76-429b-be78-66fd624f7783"
+  }
 }
