@@ -28,7 +28,7 @@
     "angularfire2": "^5.4.2",
     "bootstrap": "^4.5.3",
     "firebase": "^7.24.0",
-    "firebase-tools": "^8.16.2",
+    "firebase-tools": "^12.4.4",
     "font-awesome": "^4.7.0",
     "g": "^2.0.1",
     "ng2-validation": "^4.2.0",
